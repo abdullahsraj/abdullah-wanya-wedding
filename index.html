@@ -348,6 +348,8 @@
   const linkName = getQueryName();
   if(linkName){
     unlock(linkName);
+        const tryPlayOnce = () => { if(!playing){ playAudio(); } ['click','touchstart','scroll','keydown'].forEach(evt => document.removeEventListener(evt, tryPlayOnce)); };
+        ['click','touchstart','scroll','keydown'].forEach(evt => document.addEventListener(evt, tryPlayOnce, {once:true, passive:true}));
   } else {
     document.getElementById('gateBtn').addEventListener('click', ()=>{
       const input = document.getElementById('gateInput');
